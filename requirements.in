@@ -1,0 +1,6 @@
+aiohttp
+asyncpg
+uvloop
+pyyaml>=4.2b1
+sentry-sdk
+git+git://github.com/IOMirea/rpc@v0.2.0#egg=iomirea_rpc

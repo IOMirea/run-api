@@ -1,0 +1,14 @@
+config-version: 0
+
+postgresql:
+  host: "localhost"
+  port: "5432"
+  user: "tarakania"
+  database: "tarakania"
+redis-rpc:
+  host: "localhost"
+  port: "6379"
+sentry:
+  dsn: ""
+manager:
+  github-webhook-token: ""

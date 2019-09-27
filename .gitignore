@@ -1,3 +1,11 @@
+# Config files
+*.json
+*.yaml
+*.yml
+
+!.pre-commit-config.yaml
+!.travis.yml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -102,3 +110,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# vim
+*.swp
+
+# redis db
+*.rdb
