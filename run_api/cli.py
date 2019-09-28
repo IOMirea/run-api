@@ -13,7 +13,7 @@ DEFAULT_HOST = "0.0.0.0"
 DEFAULT_CONFIG_PATH = os.sep.join((DATA_DIR, "config.yaml"))
 
 argparser = argparse.ArgumentParser(
-    prog="run_api", description="Tarakania RPG discord bot"
+    prog="run_api", description="Public API worker for IOMirea-run"
 )
 argparser.add_argument(
     "--host",
@@ -23,7 +23,7 @@ argparser.add_argument(
 argparser.add_argument(
     "--port",
     default=DEFAULT_PORT,
-    help=f"Port to run update webhook on. Defaults to {DEFAULT_PORT}",
+    help=f"Port to run API on. Defaults to {DEFAULT_PORT}",
 )
 argparser.add_argument(
     "--config-file",
