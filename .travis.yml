@@ -1,17 +1,19 @@
 language: python
+
+cache: pip
+
 matrix:
   include:
-    - name: "Python 3.7.1 on Xenial Linux"
+    - name: "Python 3.7 on Bionic Linux"
       python: 3.7
-      dist: xenial
+      dist: bionic
 
 env:
-  - PIP_NO_CACHE_DIR=1
-  - PIP_DISABLE_PIP_VERSION_CHECK=1
+  - PIP_NO_CACHE_DIR=yes PIP_DISABLE_PIP_VERSION_CHECK=yes
 
 install:
   - pip3 install --upgrade pip
-  - pip3 install -r requirements.txt
+  # - pip3 install -r requirements.txt
   - pip3 install pre-commit
 
 script:
