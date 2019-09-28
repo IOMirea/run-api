@@ -1,23 +1,28 @@
 language: python
+python: "3.7"
+dist: bionic
 
 cache:
   pip: true
   directories:
     - $HOME/.cache/pre-commit
 
-matrix:
-  include:
-    - name: "Python 3.7 on Bionic Linux"
-      python: 3.7
-      dist: bionic
+services:
+  - docker
 
 env:
-  - PIP_NO_CACHE_DIR=yes PIP_DISABLE_PIP_VERSION_CHECK=yes
+  - PIP_DISABLE_PIP_VERSION_CHECK=yes
 
 install:
-  - pip3 install --upgrade pip
+  - pip install --upgrade pip
   # - pip3 install -r requirements.txt
-  - pip3 install pre-commit
+  - pip install pre-commit
 
 script:
   - pre-commit run --all-files
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker pull iomirea/run-api-public || true
+  - docker build --cache-from iomirea/run-api-public -t iomirea/run-api-public .
+  - docker push iomirea/run-api-public

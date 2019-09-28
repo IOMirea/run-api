@@ -16,3 +16,4 @@ Dockerfile
 LICENSE
 mypy.ini
 pyproject.toml
+README.md
