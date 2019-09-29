@@ -1,6 +1,6 @@
+dist: bionic
 language: python
 python: "3.7"
-dist: bionic
 
 cache:
   pip: true
@@ -15,6 +15,10 @@ env:
     - PIP_DISABLE_PIP_VERSION_CHECK=yes
     - DOCKER_IMAGE_NAME=iomirea/run-api-public
 
+before_install:
+  - docker pull "$DOCKER_IMAGE_NAME" || true  # pull to use image as cache
+  - docker build --cache-from "$DOCKER_IMAGE_NAME" -t "$DOCKER_IMAGE_NAME" .
+
 install:
   - pip install --upgrade pip
   # - pip3 install -r requirements.txt
@@ -23,8 +27,9 @@ install:
 script:
   - pre-commit run --all-files
 
-after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker pull "$DOCKER_IMAGE_NAME" || true
-  - docker build --cache-from "$DOCKER_IMAGE_NAME" -t "$DOCKER_IMAGE_NAME" .
-  - docker push "$DOCKER_IMAGE_NAME"
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: bash scripts/docker_push.sh
+  on:
+    branch: master
