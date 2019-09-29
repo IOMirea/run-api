@@ -1,11 +1,11 @@
 FROM python:3.7-alpine
 
 # enables proper stdout flushing
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=yes
 
 # pip optimizations
-ENV PIP_NO_CACHE_DIR 1
-ENV PIP_DISABLE_PIP_VERSION_CHECK 1
+ENV PIP_NO_CACHE_DIR=yes
+ENV PIP_DISABLE_PIP_VERSION_CHECK=yes
 
 WORKDIR /code
 
