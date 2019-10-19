@@ -1,6 +1,8 @@
+version: ~> 1.0
+
 dist: bionic
 language: python
-python: "3.7"
+python: 3.7
 
 cache:
   pip: true
@@ -13,7 +15,6 @@ services:
 env:
   global:
     - PIP_DISABLE_PIP_VERSION_CHECK=yes
-    - PIP_QUIET=yes
     - DOCKER_IMAGE_NAME=iomirea/run-api-public
 
 before_install:
@@ -21,7 +22,6 @@ before_install:
   - docker build --cache-from "$DOCKER_IMAGE_NAME" -t "$DOCKER_IMAGE_NAME" .
 
 install:
-  - pip install --upgrade pip
   - pip install pre-commit  # -r requirements.txt
 
 script:
