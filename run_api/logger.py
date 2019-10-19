@@ -57,6 +57,7 @@ def logging_name_to_level(string: str) -> int:
 
 
 def setup_logger() -> None:
+    level = logging_name_to_level(args.verbosity)
     LOGGING_CONFIG = {
         "version": 1,
         "formatters": {
@@ -92,6 +93,11 @@ def setup_logger() -> None:
                 "handlers": ["console"],
                 "propagate": False,
             },
+            "aiohttp.access": {
+                "level": level,
+                "handlers": ["console"],
+                "propagate": False,
+            },
             "sentry_sdk": {
                 "level": "DEBUG",
                 "handlers": ["console"],
@@ -104,7 +110,7 @@ def setup_logger() -> None:
             },
         },
         "root": {
-            "level": logging_name_to_level(args.verbosity),
+            "level": level,
             "handlers": ["console" if args.no_colors else "colorful_console"],
         },
         "disable_existing_loggers": False,

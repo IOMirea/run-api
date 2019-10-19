@@ -1,0 +1,22 @@
+# TODO: sort by language name?
+0:
+  aliases: [py, py3, python, python3]
+  example: |
+    print("Hello world")
+
+1:
+  aliases: [node, nodejs]
+  example: |
+    console.log("Hello world")
+
+2:
+  active: no
+  aliases: [cpp, c++]
+  example: |
+    #include <iostream>
+
+    int main() {
+        std::cout << "Hello world" << std::endl;
+
+        return 0;
+    }
