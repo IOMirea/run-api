@@ -47,6 +47,15 @@ def test_logger() -> None:
     print("----- End logger test -------")
 
 
+def logging_name_to_level(string: str) -> int:
+    logging_level = logging.getLevelName(string.upper())
+
+    if isinstance(logging_level, int):
+        return logging_level
+
+    raise ValueError(f"Unknown logging level passed: {logging_level}")
+
+
 def setup_logger() -> None:
     LOGGING_CONFIG = {
         "version": 1,
@@ -95,7 +104,7 @@ def setup_logger() -> None:
             },
         },
         "root": {
-            "level": args.verbosity,
+            "level": logging_name_to_level(args.verbosity),
             "handlers": ["console" if args.no_colors else "colorful_console"],
         },
         "disable_existing_loggers": False,

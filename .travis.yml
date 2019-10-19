@@ -30,7 +30,6 @@ script:
 
 deploy:
   edge: true
-  cleanup: false
   provider: script
   script: bash scripts/docker_push.sh
   on:

@@ -1,7 +1,6 @@
 # code originally taken from https://github.com/Tarakania/discord-bot
 
 import os
-import logging
 import argparse
 
 from pathlib import Path
@@ -39,15 +38,6 @@ argparser.add_argument(
 )
 
 
-def _convert_logging_verbosity(string: str) -> int:
-    logging_level = logging.getLevelName(string.upper())
-
-    if isinstance(logging_level, int):
-        return logging_level
-
-    raise ValueError(f"Unknown logging level passed: {logging_level}")
-
-
 argparser.add_argument(
     "--verbosity",
     "-v",
@@ -63,4 +53,3 @@ argparser.add_argument(
 argparser.add_argument("--test-logger", action="store_true", help="Perform logger test")
 
 args = argparser.parse_args()
-args.verbosity = _convert_logging_verbosity(args.verbosity)
