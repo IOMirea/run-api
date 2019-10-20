@@ -1,5 +1,3 @@
-# code originally taken from https://github.com/Tarakania/discord-bot
-
 import os
 import argparse
 
@@ -31,13 +29,8 @@ argparser.add_argument(
     help=f"Path to the config file. Defaults to {DEFAULT_CONFIG_PATH}",
 )
 argparser.add_argument(
-    "--enable-updater", action="store_true", help="Enables updater. Disabled by default"
-)
-argparser.add_argument(
     "--enable-sentry", action="store_true", help="Enables sentry. Disabled by default"
 )
-
-
 argparser.add_argument(
     "--verbosity",
     "-v",
@@ -45,11 +38,8 @@ argparser.add_argument(
     default="info",
     help="Verbosity level",
 )
-
 argparser.add_argument(
     "--no-colors", action="store_true", help="Disables console colors"
 )
-
-argparser.add_argument("--test-logger", action="store_true", help="Perform logger test")
 
 args = argparser.parse_args()

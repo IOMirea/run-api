@@ -30,23 +30,6 @@ class ColorFormatter(logging.Formatter):
         return f"{COLOR_START}{color_value}m{formatted}{COLOR_RESET}"
 
 
-def test_logger() -> None:
-    print("----- Start logger test -----")
-
-    message = "The quick brown fox jumps over the lazy dog"
-
-    for level in (
-        logging.DEBUG,
-        logging.INFO,
-        logging.WARNING,
-        logging.ERROR,
-        logging.CRITICAL,
-    ):
-        logging.log(level, message)
-
-    print("----- End logger test -------")
-
-
 def logging_name_to_level(string: str) -> int:
     logging_level = logging.getLevelName(string.upper())
 
@@ -117,6 +100,3 @@ def setup_logger() -> None:
     }
 
     logging.config.dictConfig(LOGGING_CONFIG)
-
-    if args.test_logger:
-        test_logger()

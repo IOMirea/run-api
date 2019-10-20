@@ -23,7 +23,9 @@ DEBUG_MODE = args.verbosity == logging.DEBUG
 def create_app(config: Dict[str, Any]) -> web.Application:
     base_app = web.Application()
     base_app["config"] = config
+
     base_app.add_routes(manager_routes)
+
     base_app.middlewares.append(error_handler)
 
     setup_pg(base_app)

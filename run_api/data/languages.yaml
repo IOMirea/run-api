@@ -1,6 +1,6 @@
 # TODO: sort by language name?
 0:
-  aliases: [py, py3, python, python3]
+  aliases: [python, python3, py, py3]
   example: |
     print("Hello world")
 
@@ -12,6 +12,7 @@
 2:
   active: no
   aliases: [cpp, c++]
+  compile_args: g++ -x c++ input -o executable
   example: |
     #include <iostream>
 
@@ -20,3 +21,8 @@
 
         return 0;
     }
+
+3:
+  aliases: [sh, bash]
+  example: |
+    echo Hello World
