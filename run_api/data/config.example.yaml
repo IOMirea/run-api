@@ -11,4 +11,4 @@ redis-rpc:
 sentry:
   dsn: ""
 manager:
-  github-webhook-token: ""
+  docker-hub-webhook-path: "docker-hub-webhook"

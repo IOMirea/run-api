@@ -15,7 +15,7 @@ from .config import read_config
 from .logger import setup_logger
 from .middlewares import error_handler
 from .routes.api.v0 import routes as api_v0_routes
-from .routes.manager import routes as manager_routes
+from .routes.manager import docker_hub_webhook
 
 DEBUG_MODE = args.verbosity == logging.DEBUG
 
@@ -24,7 +24,13 @@ def create_app(config: Dict[str, Any]) -> web.Application:
     base_app = web.Application()
     base_app["config"] = config
 
-    base_app.add_routes(manager_routes)
+    base_app.add_routes(
+        [
+            web.get(
+                f"/{config['manager']['docker-hub-webhook-path']}", docker_hub_webhook
+            )
+        ]
+    )
 
     base_app.middlewares.append(error_handler)
 
@@ -50,7 +56,7 @@ if __name__ == "__main__":
     log = logging.getLogger(__name__)
 
     if args.enable_sentry:
-        log.debug("Initializing sentry")
+        log.debug("initializing sentry")
 
         sentry_sdk.init(
             dsn=config["sentry"]["dsn"],
@@ -58,7 +64,7 @@ if __name__ == "__main__":
             debug=DEBUG_MODE,
         )
     else:
-        log.debug("Skipping sentry initialization")
+        log.debug("skipping sentry initialization")
 
     uvloop.install()
 

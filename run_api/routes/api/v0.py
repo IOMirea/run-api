@@ -17,25 +17,38 @@ async def run_code(req: web.Request) -> web.Response:
 
     start_time = time.time()
     # internal API call
-    execution_time = time.time() - start_time
+    total_run_time = time.time() - start_time
 
     return web.json_response(
         dict(
             stdout="Code execution successfull\n",
             stderr="",
-            execution_time=execution_time,
+            exit_code=0,
+            exec_time=1,
+            total_run_time=total_run_time,
         )
     )
 
 
-@routes.get(r"/languages/{language_code}")
-async def get_language(req: web.Request) -> web.Response:
-    language = validate_language(req.match_info["language_code"])
+@routes.get(r"/sessions/{session_id:(\w|\d)+}")
+async def get_session(req: web.Request) -> web.Response:
+    session_id = req.match_info["session_id"]
 
-    return web.json_response(language.to_json())
+    # TODO
+
+    return web.json_response(dict(message=f"Session {session_id} ws connection. TODO"))
 
 
-@routes.get("/languages")
+@routes.delete(r"/sessions/{session_id:(\w|\d)+}")
+async def kill_session(req: web.Request) -> web.Response:
+    session_id = req.match_info["session_id"]
+
+    # TODO
+
+    return web.json_response(dict(message=f"Killed session {session_id}"))
+
+
+@routes.get(r"/sessions/{session_id:(\w|\d)+}/kill")
 async def get_languages(req: web.Request) -> web.Response:
     return web.json_response([l.to_json() for l in SUPPORTED_LANGUAGES.values()])
 

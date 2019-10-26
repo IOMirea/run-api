@@ -12,6 +12,7 @@ WORKDIR /code
 # avoid cache invalidation after copying entire directory
 COPY requirements.txt .
 
+# TODO: remove git
 RUN apk add --no-cache --virtual build-deps \
         git \
         gcc \
