@@ -26,7 +26,7 @@ def create_app(config: Dict[str, Any]) -> web.Application:
 
     base_app.add_routes(
         [
-            web.get(
+            web.post(
                 f"/{config['manager']['docker-hub-webhook-path']}", docker_hub_webhook
             )
         ]
