@@ -18,7 +18,7 @@ RUN apk add --no-cache --virtual build-deps \
         musl-dev && \
     pip install -r requirements.txt && \
     apk del build-deps && \
-    apk add --no-cache docker
+    apk add --no-cache docker-cli
 
 EXPOSE 8080
 
