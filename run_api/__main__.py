@@ -8,8 +8,8 @@ import sentry_sdk
 from aiohttp import web
 from sentry_sdk.integrations.aiohttp import AioHttpIntegration
 
-# from .rpc import setup_rpc
 from .cli import args
+from .rpc import setup as setup_rpc
 from .db.pg import setup as setup_pg
 from .config import read_config
 from .logger import setup_logger
@@ -35,7 +35,7 @@ def create_app(config: Dict[str, Any]) -> web.Application:
     base_app.middlewares.append(error_handler)
 
     setup_pg(base_app)
-    # setup_rpc(base_app)
+    setup_rpc(base_app)
 
     base_api_app = web.Application()
 

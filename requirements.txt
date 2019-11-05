@@ -5,7 +5,7 @@
 #    pip-compile --no-index --output-file=requirements.txt requirements.in
 #
 aiohttp==3.5.4
-aioredis==1.2.0
+aioredis==1.2.0           # via jarpc
 async-timeout==3.0.1      # via aiohttp, aioredis
 asyncpg==0.18.3
 attrs==19.1.0             # via aiohttp
@@ -13,7 +13,7 @@ certifi==2019.6.16        # via sentry-sdk
 chardet==3.0.4            # via aiohttp
 hiredis==1.0.0            # via aioredis
 idna==2.8                 # via yarl
-git+git://github.com/IOMirea/rpc@v0.2.0#egg=iomirea_rpc
+jarpc==0.3.0
 multidict==4.5.2          # via aiohttp, yarl
 pyyaml==5.1.1
 sentry-sdk==0.11.2

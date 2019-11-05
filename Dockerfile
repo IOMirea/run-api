@@ -12,14 +12,13 @@ WORKDIR /code
 # avoid cache invalidation after copying entire directory
 COPY requirements.txt .
 
-# TODO: remove git
 RUN apk add --no-cache --virtual build-deps \
-        git \
         gcc \
         make \
         musl-dev && \
     pip install -r requirements.txt && \
-    apk del build-deps
+    apk del build-deps && \
+    apk add --no-cache docker
 
 EXPOSE 8080
 
