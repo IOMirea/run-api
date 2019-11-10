@@ -24,10 +24,10 @@ EXPOSE 8080
 
 COPY . .
 
-RUN addgroup -S iomirea && \
-    adduser -S run-api-public -G iomirea && \
-    chown -R run-api-public:iomirea /code
-
-USER run-api-public
+# RUN addgroup -S iomirea && \
+#     adduser -S run-api-public -G iomirea && \
+#     chown -R run-api-public:iomirea /code
+#
+# USER run-api-public
 
 ENTRYPOINT ["python", "-m", "run_api"]
