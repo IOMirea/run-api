@@ -29,4 +29,8 @@ RUN addgroup -S iomirea && \
 
 USER run-api-public
 
+ARG GIT_COMMIT=undefined
+ENV GIT_COMMIT=${GIT_COMMIT}
+LABEL GIT_COMMIT=${GIT_COMMIT}
+
 ENTRYPOINT ["python", "-m", "run_api"]

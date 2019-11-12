@@ -1,4 +1,4 @@
-import asyncio
+import os
 import logging
 
 from typing import Any, Dict
@@ -12,7 +12,6 @@ from sentry_sdk.integrations.aiohttp import AioHttpIntegration
 from .cli import args
 from .rpc import setup as setup_rpc
 from .db.pg import setup as setup_pg
-from .utils import run_shell_command
 from .config import read_config
 from .logger import setup_logger
 from .middlewares import error_handler
@@ -57,6 +56,8 @@ if __name__ == "__main__":
 
     log = logging.getLogger(__name__)
 
+    log.info(f"running on version {os.environ['GIT_COMMIT']}")
+
     if args.enable_sentry:
         log.debug("initializing sentry")
 
@@ -72,5 +73,3 @@ if __name__ == "__main__":
 
     app = create_app(config)
     web.run_app(app, host=args.host, port=args.port)
-
-    asyncio.run(run_shell_command("docker rm -f run-api"))
