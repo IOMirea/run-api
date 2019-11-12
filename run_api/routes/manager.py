@@ -1,10 +1,14 @@
+import os
+import signal
+
 from json import JSONDecodeError
 from logging import getLogger
 
 from aiohttp import ClientSession, web
 from aiohttp.client_exceptions import InvalidURL
 
-# from ..rpc import COMMAND_UPDATE_RUNNERS
+from ..rpc import COMMAND_UPDATE_RUNNERS
+from ..utils import run_shell_command
 
 log = getLogger(__name__)
 
@@ -23,16 +27,10 @@ async def docker_hub_webhook(req: web.Request) -> web.Response:
     except KeyError:
         raise web.HTTPBadRequest(reason="callback_url key is missing")
 
-    # try:
-    #     repository = data["repository"]["repo_name"]
-    # except KeyError:
-    #     raise web.HTTPBadRequest(reason="repository name is missing")
-    #
-    # if repository == API_REPO_NAME:
-    #     # update self
-    #     pass
-    # elif repository == RUNNER_REPO_NAME:
-    #     await req["rpc"].call(COMMAND_UPDATE_RUNNERS)
+    try:
+        repository = data["repository"]["repo_name"]
+    except KeyError:
+        raise web.HTTPBadRequest(reason="repository name is missing")
 
     if not isinstance(callback_url, str):
         raise web.HTTPBadRequest(reason="callback_url is not string")
@@ -46,5 +44,13 @@ async def docker_hub_webhook(req: web.Request) -> web.Response:
                     log.error("error sending response to docker hub: %s", str(resp))
         except InvalidURL:
             raise web.HTTPBadRequest(reason="bad callback_url url")
+
+    if repository == API_REPO_NAME:
+        run_shell_command(f"docker pull iomirea/{API_REPO_NAME}")
+
+        os.kill(os.getpid(), signal.SIGTERM)
+
+    elif repository == RUNNER_REPO_NAME:
+        await req["rpc"].call(COMMAND_UPDATE_RUNNERS)
 
     return web.Response()

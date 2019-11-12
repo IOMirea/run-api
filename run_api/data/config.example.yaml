@@ -1,5 +1,7 @@
 config-version: 0
 
+app:
+  run-lb-ip: "localhost"
 postgresql:
   host: "localhost"
   port: "5432"
