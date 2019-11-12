@@ -46,7 +46,7 @@ async def docker_hub_webhook(req: web.Request) -> web.Response:
             raise web.HTTPBadRequest(reason="bad callback_url url")
 
     if repository == API_REPO_NAME:
-        run_shell_command(f"docker pull {API_REPO_NAME}")
+        await run_shell_command(f"docker pull {API_REPO_NAME}", wait=True)
 
         os.kill(os.getpid(), signal.SIGTERM)
 
