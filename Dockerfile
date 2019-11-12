@@ -17,17 +17,16 @@ RUN apk add --no-cache --virtual build-deps \
         make \
         musl-dev && \
     pip install -r requirements.txt && \
-    apk del build-deps && \
-    apk add --no-cache docker-cli
+    apk del build-deps
 
 EXPOSE 8080
 
 COPY . .
 
-# RUN addgroup -S iomirea && \
-#     adduser -S run-api-public -G iomirea && \
-#     chown -R run-api-public:iomirea /code
-#
-# USER run-api-public
+RUN addgroup -S iomirea && \
+    adduser -S run-api-public -G iomirea && \
+    chown -R run-api-public:iomirea /code
+
+USER run-api-public
 
 ENTRYPOINT ["python", "-m", "run_api"]

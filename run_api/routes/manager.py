@@ -8,7 +8,6 @@ from aiohttp import ClientSession, web
 from aiohttp.client_exceptions import InvalidURL
 
 from ..rpc import COMMAND_UPDATE_RUNNERS
-from ..utils import run_shell_command
 
 log = getLogger(__name__)
 
@@ -46,8 +45,6 @@ async def docker_hub_webhook(req: web.Request) -> web.Response:
             raise web.HTTPBadRequest(reason="bad callback_url url")
 
     if repository == API_REPO_NAME:
-        await run_shell_command(f"docker pull {API_REPO_NAME}", wait=True)
-
         os.kill(os.getpid(), signal.SIGTERM)
 
     elif repository == RUNNER_REPO_NAME:
