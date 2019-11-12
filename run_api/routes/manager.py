@@ -12,8 +12,8 @@ from ..utils import run_shell_command
 
 log = getLogger(__name__)
 
-API_REPO_NAME = "run-api-public"
-RUNNER_REPO_NAME = "run-api-private"
+API_REPO_NAME = "iomirea/run-api-public"
+RUNNER_REPO_NAME = "iomirea/run-api-private"
 
 
 async def docker_hub_webhook(req: web.Request) -> web.Response:
@@ -46,7 +46,7 @@ async def docker_hub_webhook(req: web.Request) -> web.Response:
             raise web.HTTPBadRequest(reason="bad callback_url url")
 
     if repository == API_REPO_NAME:
-        run_shell_command(f"docker pull iomirea/{API_REPO_NAME}")
+        run_shell_command(f"docker pull {API_REPO_NAME}")
 
         os.kill(os.getpid(), signal.SIGTERM)
 
