@@ -31,6 +31,6 @@ script:
 deploy:
   edge: true
   provider: script
-  script: bash scripts/docker_push.sh
+  script: scripts/docker_push.sh
   on:
     branch: master

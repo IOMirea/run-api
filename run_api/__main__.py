@@ -13,7 +13,7 @@ from .cli import args
 from .rpc import setup as setup_rpc
 from .db.pg import setup as setup_pg
 from .config import read_config
-from .logger import setup_logger
+from .logger import setup as setup_logger
 from .middlewares import error_handler
 from .routes.api.v0 import routes as api_v0_routes
 from .routes.manager import docker_hub_webhook

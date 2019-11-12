@@ -39,8 +39,9 @@ def logging_name_to_level(string: str) -> int:
     raise ValueError(f"Unknown logging level passed: {logging_level}")
 
 
-def setup_logger() -> None:
+def setup() -> None:
     level = logging_name_to_level(args.verbosity)
+
     LOGGING_CONFIG = {
         "version": 1,
         "formatters": {
@@ -63,33 +64,6 @@ def setup_logger() -> None:
                 "level": "DEBUG",
                 "class": "logging.StreamHandler",
                 "formatter": "colorful_simple",
-            },
-        },
-        "loggers": {
-            "asyncio": {
-                "level": "WARNING",
-                "handlers": ["console"],
-                "propagate": False,
-            },
-            "aiohttp": {
-                "level": "WARNING",
-                "handlers": ["console"],
-                "propagate": False,
-            },
-            "aiohttp.access": {
-                "level": level,
-                "handlers": ["console"],
-                "propagate": False,
-            },
-            "sentry_sdk": {
-                "level": "DEBUG",
-                "handlers": ["console"],
-                "propagate": False,
-            },
-            "aioredis": {
-                "level": "WARNING",
-                "handlers": ["console"],
-                "propagate": False,
             },
         },
         "root": {
