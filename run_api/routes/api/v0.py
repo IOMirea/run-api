@@ -28,11 +28,11 @@ async def get_languages(req: web.Request) -> web.Response:
     return web.json_response([l.to_json() for l in SUPPORTED_LANGUAGES.values()])
 
 
-@routes.post(r"/languages/{language_code}")
+@routes.post(r"/languages/{language_name}")
 async def run_code(req: web.Request) -> web.Response:
     start_time = time.time()
 
-    language = validate_language(req.match_info["language_code"])
+    language = validate_language(req.match_info["language_name"])
 
     try:
         data = await req.json()
