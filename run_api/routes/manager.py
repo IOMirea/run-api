@@ -50,6 +50,6 @@ async def docker_hub_webhook(req: web.Request) -> web.Response:
         os.kill(os.getpid(), signal.SIGTERM)
 
     elif repository == RUNNER_REPO_NAME:
-        await req["rpc"].call(COMMAND_UPDATE_RUNNERS)
+        await req.config_dict["rpc"].call(COMMAND_UPDATE_RUNNERS)
 
     return web.Response()
