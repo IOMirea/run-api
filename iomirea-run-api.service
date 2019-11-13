@@ -6,13 +6,11 @@ Description=Container for IOMIrea run API
 [Service]
 TimeoutStartSec=0
 Restart=always
-ExecStartPre=-/usr/bin/docker stop %n
-ExecStartPre=-/usr/bin/docker rm %n
-ExecStartPre=/usr/bin/docker pull iomirea/run-api-public
-ExecStart=/usr/bin/docker run --name %n --rm -p 127.0.0.1:8080:8080 -v /srv/iomirea/run-api/run_api/data/config.yaml:/code/run_api/data/config.yaml -- iomirea/run-api-public --enable-sentry
-WorkingDirectory=/srv/iomirea/run-api
-User=kiwi
-Group=kiwi
+ExecStartPre=-%h/bin/docker stop %n
+ExecStartPre=-%h/bin/docker rm %n
+ExecStart=%h/bin/docker run --name %n --rm --pull always -p 127.0.0.1:8080:8080 \
+                            -v %h/run-api/run_api/data/config.yaml:/code/run_api/data/config.yaml \
+                            iomirea/run-api-public --enable-sentry
 
 [Install]
 WantedBy=multi-user.target
