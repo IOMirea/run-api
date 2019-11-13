@@ -5,7 +5,7 @@ from typing import Optional
 
 from aiohttp import web
 
-from .constants import SUPPORTED_LANGUAGES, SUPPORTED_LANGUAGES_NAME_MAP
+from .constants import SUPPORTED_LANGUAGES
 from .types.language import Language
 
 
@@ -41,20 +41,20 @@ log = logging.getLogger(__name__)
 
 
 def validate_language(string: str) -> Language:
-    if string.isdigit():
-        try:
-            integer = int(string)
-        except MemoryError:  # should not happen normally
-            raise web.HTTPBadRequest(reason="Language code is not a valid integer")
-
-        language = SUPPORTED_LANGUAGES.get(integer)
-        if language is None:
-            raise web.HTTPBadRequest(reason="Not a valid language code")
-
-        return language
+    # if string.isdigit():
+    #     try:
+    #         integer = int(string)
+    #     except MemoryError:  # should not happen normally
+    #         raise web.HTTPBadRequest(reason="Language code is not a valid integer")
+    #
+    #     language = SUPPORTED_LANGUAGES.get(integer)
+    #     if language is None:
+    #         raise web.HTTPBadRequest(reason="Not a valid language code")
+    #
+    #     return language
 
     string = string.lower()
-    language_code = SUPPORTED_LANGUAGES_NAME_MAP.get(string)
+    language_code = SUPPORTED_LANGUAGES.get(string)
 
     if language_code is not None:
         return language_code

@@ -11,18 +11,15 @@ DATA_DIR = os.sep.join((BASE_DIR, "data"))
 
 LANGUAGES_FILE = os.sep.join((DATA_DIR, "languages.yaml"))
 
-# TODO: get language list dynamically from internal API
-SUPPORTED_LANGUAGES: Dict[int, Language] = {}
-SUPPORTED_LANGUAGES_NAME_MAP: Dict[str, Language] = {}
+SUPPORTED_LANGUAGES: Dict[str, Language] = {}
 
 
 def read_languages() -> None:
     """Reads languages from file."""
 
-    global SUPPORTED_LANGUAGES, SUPPORTED_LANGUAGES_NAME_MAP
+    global SUPPORTED_LANGUAGES
 
     SUPPORTED_LANGUAGES = {}
-    SUPPORTED_LANGUAGES_NAME_MAP = {}
 
     with open(LANGUAGES_FILE, "r") as f:
         data = yaml.load(f, Loader=yaml.SafeLoader)
@@ -30,21 +27,21 @@ def read_languages() -> None:
     if not isinstance(data, dict):
         raise ValueError("Bad yaml file: not a mapping")
 
-    for i in data.items():
-        language = Language.from_json(i)
+    for name, body in data.items():
+        language = Language.from_json({"name": name, **body})
         if not language.active:
             continue
 
-        SUPPORTED_LANGUAGES[language.code] = language
+        SUPPORTED_LANGUAGES[language.name] = language
 
         for alias in language.aliases:
-            existing = SUPPORTED_LANGUAGES_NAME_MAP.get(alias)
+            existing = SUPPORTED_LANGUAGES.get(alias)
             if existing is not None:
                 raise ValueError(
                     f"Duplicate language alias: {alias}. Used in {existing}"
                 )
 
-            SUPPORTED_LANGUAGES_NAME_MAP[alias] = language
+            SUPPORTED_LANGUAGES[alias] = language
 
 
 read_languages()

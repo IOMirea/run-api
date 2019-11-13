@@ -1,17 +1,16 @@
-# TODO: sort by languages name?
-0:
-  aliases: [python, python3, py, py3]
+python:
+  aliases: [python3, py, py3]
   example: |
     print("Hello world")
 
-1:
-  aliases: [node, nodejs]
+node:
+  aliases: [nodejs]
   example: |
     console.log("Hello world")
 
-2:
+cpp:
   active: no
-  aliases: [cpp, c++]
+  aliases: [c++]
   compile_args: g++ -x c++ input -o executable
   example: |
     #include <iostream>
@@ -22,7 +21,7 @@
         return 0;
     }
 
-3:
-  aliases: [sh, bash]
+sh:
+  aliases: [bash]
   example: |
     echo Hello World

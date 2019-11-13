@@ -39,7 +39,7 @@ async def run_code(req: web.Request) -> web.Response:
     except JSONDecodeError:
         raise web.HTTPBadRequest(reason="Bad json in body")
 
-    payload = {"language": language.code}
+    payload = {"language": language.name}
 
     code = data.pop("code", None)
     if code is None or code == "":
