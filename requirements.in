@@ -3,4 +3,4 @@ asyncpg
 uvloop
 pyyaml>=4.2b1
 sentry-sdk
-jarpc>=0.3.0
+git+https://github.com/IOMirea/jarpc

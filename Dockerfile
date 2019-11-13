@@ -15,7 +15,8 @@ COPY requirements.txt .
 RUN apk add --no-cache --virtual build-deps \
         gcc \
         make \
-        musl-dev && \
+        musl-dev \
+        git && \
     pip install -r requirements.txt && \
     apk del build-deps
 
