@@ -2,6 +2,8 @@
 
 [Unit]
 Description=Container for IOMIrea run API
+After=docker.service
+Requires=docker.service
 
 [Service]
 TimeoutStartSec=0
