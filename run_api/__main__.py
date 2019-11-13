@@ -15,6 +15,7 @@ from .db.pg import setup as setup_pg
 from .config import read_config
 from .logger import setup as setup_logger
 from .middlewares import error_handler
+from .routes.misc import routes as misc_routes
 from .routes.api.v0 import routes as api_v0_routes
 from .routes.manager import docker_hub_webhook
 
@@ -32,6 +33,7 @@ def create_app(config: Dict[str, Any]) -> web.Application:
             )
         ]
     )
+    base_app.add_routes(misc_routes)
 
     base_app.middlewares.append(error_handler)
 
