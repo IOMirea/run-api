@@ -8,6 +8,8 @@ from aiohttp import web
 from .constants import SUPPORTED_LANGUAGES
 from .types.language import Language
 
+log = logging.getLogger(__name__)
+
 
 class ShellResult:
     def __init__(self, stdout: bytes, stderr: bytes, exit_code: int):
@@ -35,9 +37,6 @@ class ShellResult:
 
     def __repr__(self) -> str:
         return f"<{self.__class__.__name__} stdout={self.stdout} stderr={self.stderr}>"
-
-
-log = logging.getLogger(__name__)
 
 
 def validate_language(string: str) -> Language:
