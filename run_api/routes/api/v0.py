@@ -59,7 +59,9 @@ async def run_code(req: web.Request) -> web.Response:
             if resp.status != 200:
                 log.error("bad response status: %d: %s", resp.status, resp.reason)
 
-                raise web.HTTPInternalServerError(reason="Backend response error")
+                raise web.HTTPInternalServerError(
+                    reason=f"Backend response error: {resp.reason}"
+                )
 
             try:
                 response_json = await resp.json()
