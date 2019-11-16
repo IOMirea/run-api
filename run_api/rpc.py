@@ -9,6 +9,7 @@ from aiohttp import web
 log = logging.getLogger(__name__)
 
 COMMAND_UPDATE_RUNNERS = 0
+COMMAND_UPDATE_LANGUAGE = 1
 
 
 async def on_startup(app: web.Application) -> None:

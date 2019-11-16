@@ -20,7 +20,7 @@ env:
 
 before_install:
   - docker pull "$DOCKER_IMAGE_NAME" || true  # pull to use image as cache
-  - docker build --cache-from "$DOCKER_IMAGE_NAME" -t "$DOCKER_IMAGE_NAME" . --build-arg GIT_COMMIT=$(git log -1 --format=%h)
+  - docker build --cache-from "$DOCKER_IMAGE_NAME" -t "$DOCKER_IMAGE_NAME" . --build-arg GIT_COMMIT=$TRAVIS_COMMIT
 
 install:
   - pip install pre-commit  # -r requirements.txt

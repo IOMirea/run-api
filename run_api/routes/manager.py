@@ -1,4 +1,5 @@
 import os
+import re
 import signal
 
 from json import JSONDecodeError
@@ -7,12 +8,16 @@ from logging import getLogger
 from aiohttp import ClientSession, web
 from aiohttp.client_exceptions import InvalidURL
 
-from ..rpc import COMMAND_UPDATE_RUNNERS
+from ..rpc import COMMAND_UPDATE_RUNNERS, COMMAND_UPDATE_LANGUAGE
 
 log = getLogger(__name__)
 
-API_REPO_NAME = "iomirea/run-api-public"
-RUNNER_REPO_NAME = "iomirea/run-api-private"
+ORG_NAME = "iomirea"
+
+API_REPO_NAME = f"{ORG_NAME}/run-api-public"
+RUNNER_REPO_NAME = f"{ORG_NAME}/run-api-private"
+
+LANG_REPO_PATTERN = re.compile(f"{ORG_NAME}/run-lang-(.+)")
 
 
 async def docker_hub_webhook(req: web.Request) -> web.Response:
@@ -51,5 +56,12 @@ async def docker_hub_webhook(req: web.Request) -> web.Response:
 
     elif repository == RUNNER_REPO_NAME:
         await req.config_dict["rpc"].call(COMMAND_UPDATE_RUNNERS)
+
+    else:
+        match = LANG_REPO_PATTERN.fullmatch(repository)
+        if match is not None:
+            await req.config_dict["rpc"].call(
+                COMMAND_UPDATE_LANGUAGE, dict(language=match[1])
+            )
 
     return web.Response()
