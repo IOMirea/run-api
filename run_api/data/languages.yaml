@@ -9,9 +9,9 @@ node:
     console.log("Hello world")
 
 cpp:
-  active: no
   aliases: [c++]
-  compile_args: g++ -x c++ input -o executable
+  compiler: g++
+  compile_args: -x c++ to_compile -o input
   example: |
     #include <iostream>
 

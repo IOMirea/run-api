@@ -39,14 +39,13 @@ async def run_code(req: web.Request) -> web.Response:
     except JSONDecodeError:
         raise web.HTTPBadRequest(reason="Bad json in body")
 
-    code = data.pop("code", None)
-    if code is None or code == "":
-        raise web.HTTPBadRequest(reason="Missing or empty code value")
-
-    payload = {"code": code}
+    payload = {"code": data.pop("code", language.example)}
 
     if language.compiled:
-        payload["compile_args"] = data.pop("compile_args", language.compile_args)
+        compile_args = data.pop("compile_args", language.compile_args)
+        payload["compile_command"] = f"{language.compiler} {compile_args}"
+
+    payload["merge_output"] = data.get("merge_output", False)
 
     backend_run_url = (
         f"{req.config_dict['config']['app']['run-lb-ip']}/run/{language.name}"
