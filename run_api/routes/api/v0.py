@@ -16,19 +16,19 @@ routes = web.RouteTableDef()
 log = logging.getLogger(__name__)
 
 
-@routes.get(r"/{_:languages|l}/{language_code}")
+@routes.get(r"/languages/{language_code}")
 async def get_language(req: web.Request) -> web.Response:
     language = validate_language(req.match_info["language_code"])
 
     return web.json_response(language.to_json())
 
 
-@routes.get(r"/{_:languages|l}")
+@routes.get(r"/languages")
 async def get_languages(req: web.Request) -> web.Response:
     return web.json_response([l.to_json() for l in SUPPORTED_LANGUAGES.values()])
 
 
-@routes.post(r"/{_:languages|l}/{language_name}")
+@routes.post(r"/languages/{language_name}")
 async def run_code(req: web.Request) -> web.Response:
     start_time = time.time()
 
