@@ -23,13 +23,15 @@ from .routes.manager import docker_hub_webhook
 DEBUG_MODE = args.verbosity == logging.DEBUG
 
 
+async def on_startup(app: web.Application) -> None:
+    await aiohttp_remotes.setup(app, aiohttp_remotes.XForwardedRelaxed())
+
+
 def create_app(config: Dict[str, Any]) -> web.Application:
     base_app = web.Application()
     base_app["config"] = config
 
-    base_app.on_startup.append(
-        aiohttp_remotes.setup(base_app, aiohttp_remotes.XForwardedRelaxed())
-    )
+    base_app.on_startup.append(on_startup)
 
     base_app.add_routes(
         [
