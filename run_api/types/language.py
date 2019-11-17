@@ -37,7 +37,12 @@ class Language:
 
     def to_json(self) -> Any:
         result = {}
-        for property in ("name", "aliases", "example", "compiled", "compile_args"):
+
+        properties = ["name", "aliases", "example", "compiled"]
+        if self.compiled:
+            properties.append("compile_args")
+
+        for property in properties:
             result[property] = getattr(self, property)
 
         return result
