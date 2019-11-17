@@ -4,6 +4,7 @@
 #
 #    pip-compile --no-index --output-file=requirements.txt requirements.in
 #
+aiohttp-remotes==0.1.2
 aiohttp==3.5.4
 aioredis==1.2.0
 async-timeout==3.0.1      # via aiohttp, aioredis

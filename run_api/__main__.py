@@ -5,6 +5,7 @@ from typing import Any, Dict
 
 import uvloop
 import sentry_sdk
+import aiohttp_remotes
 
 from aiohttp import web
 from sentry_sdk.integrations.aiohttp import AioHttpIntegration
@@ -25,6 +26,10 @@ DEBUG_MODE = args.verbosity == logging.DEBUG
 def create_app(config: Dict[str, Any]) -> web.Application:
     base_app = web.Application()
     base_app["config"] = config
+
+    base_app.on_startup.append(
+        aiohttp_remotes.setup(app, aiohttp_remotes.XForwardedRelaxed())
+    )
 
     base_app.add_routes(
         [
