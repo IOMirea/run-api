@@ -28,7 +28,7 @@ def create_app(config: Dict[str, Any]) -> web.Application:
     base_app["config"] = config
 
     base_app.on_startup.append(
-        aiohttp_remotes.setup(app, aiohttp_remotes.XForwardedRelaxed())
+        aiohttp_remotes.setup(base_app, aiohttp_remotes.XForwardedRelaxed())
     )
 
     base_app.add_routes(
