@@ -25,7 +25,9 @@ async def get_language(req: web.Request) -> web.Response:
 
 @routes.get(r"/languages")
 async def get_languages(req: web.Request) -> web.Response:
-    return web.json_response([l.to_json() for l in SUPPORTED_LANGUAGES.values()])
+    unique_langs = set(SUPPORTED_LANGUAGES.values())
+
+    return web.json_response([l.to_json() for l in unique_langs])
 
 
 @routes.post(r"/languages/{language_name}")
