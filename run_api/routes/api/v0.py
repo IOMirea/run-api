@@ -3,7 +3,7 @@ import time
 import logging
 
 from json import JSONDecodeError
-from typing import Dict, List
+from typing import Any, Dict, List
 
 from aiohttp import ClientSession, web
 
@@ -36,10 +36,17 @@ async def run_code(req: web.Request) -> web.Response:
 
     language = validate_language(req.match_info["language_name"])
 
-    try:
-        data = await req.json()
-    except JSONDecodeError:
-        raise web.HTTPBadRequest(reason="Bad json in body")
+    body = await req.read()
+    if not body:
+        data: Dict[str, Any] = {}
+    else:
+        try:
+            data = json.loads(body)
+        except JSONDecodeError:
+            raise web.HTTPBadRequest(reason="Bad json in body: unable to decode")
+
+        if not isinstance(data, dict):
+            raise web.HTTPBadRequest(reason="Bad json in body: root object is not map")
 
     payload = {"code": data.pop("code", language.example)}
 
