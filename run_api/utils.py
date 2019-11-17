@@ -10,6 +10,9 @@ from .types.language import Language
 
 log = logging.getLogger(__name__)
 
+TRUTHY = {"yes", "1", "true", "t", ""}
+FALSY = {"no", "0", "false", "f"}
+
 
 class ShellResult:
     def __init__(self, stdout: bytes, stderr: bytes, exit_code: int):
@@ -74,3 +77,19 @@ async def run_shell_command(command: str, wait: bool = False) -> ShellResult:
     stdout, stderr = await process.communicate()
 
     return ShellResult(stdout, stderr, process.returncode)
+
+
+def get_query_bool_flag(req: web.Request, name: str, default: bool) -> bool:
+    value = req.query.get(name)
+    if value is None:
+        return default
+
+    value = value.lower()
+
+    if value in TRUTHY:
+        return True
+
+    if value in FALSY:
+        return False
+
+    return default

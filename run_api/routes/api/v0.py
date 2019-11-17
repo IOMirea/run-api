@@ -7,7 +7,7 @@ from typing import Dict, List
 
 from aiohttp import ClientSession, web
 
-from ...utils import validate_language
+from ...utils import validate_language, get_query_bool_flag
 from ...constants import SUPPORTED_LANGUAGES
 
 routes = web.RouteTableDef()
@@ -47,7 +47,7 @@ async def run_code(req: web.Request) -> web.Response:
         compile_args = data.pop("compile_args", language.compile_args)
         payload["compile_command"] = f"{language.compiler} {compile_args}"
 
-    payload["merge_output"] = data.get("merge_output", False)
+    payload["merge_output"] = get_query_bool_flag(req, "merge", False)
 
     backend_run_url = (
         f"{req.config_dict['config']['app']['run-lb-ip']}/run/{language.name}"
