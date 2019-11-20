@@ -1,15 +1,15 @@
 python:
-  aliases: [python3, py, py3]
+  aliases: [python3, python3.7, py, py3, py3.7]
   example: |
     print("Hello world")
 
 node:
-  aliases: [nodejs]
+  aliases: [node13, nodejs, nodejs13]
   example: |
     console.log("Hello world")
 
 cpp:
-  aliases: [c++]
+  aliases: [cpp-g++, c++, c++-g++]
   compiler: g++
   compile_args: -x c++ compile_input -o exec_input
   example: |
@@ -22,6 +22,6 @@ cpp:
     }
 
 sh:
-  aliases: [bash]
+  aliases: [bash, shell]
   example: |
     echo Hello World
