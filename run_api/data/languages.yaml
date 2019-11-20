@@ -11,7 +11,7 @@ node:
 cpp:
   aliases: [c++]
   compiler: g++
-  compile_args: -x c++ to_compile -o input
+  compile_args: -x c++ compile_input -o exec_input
   example: |
     #include <iostream>
 
