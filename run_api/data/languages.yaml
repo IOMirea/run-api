@@ -10,7 +10,7 @@ node:
 
 cpp:
   aliases: [cpp-g++, c++, c++-g++]
-  compiler: g++
+  compilers: g++
   compile_args: -x c++ compile_input -o exec_input
   example: |
     #include <iostream>
@@ -25,3 +25,37 @@ sh:
   aliases: [bash, shell]
   example: |
     echo Hello World
+
+asm:
+  aliases: [nasm]
+  compilers:
+    - nasm
+    - ld
+  compile_args:
+    - -f elf64 compile_input
+    - compile_input.o -o exec_input
+  example: |
+    ; example taken from gocode.it
+    global _start
+
+    section .text
+
+    hello:
+        mov eax,4            ; write(
+        mov ebx,1            ;  FD_STDOUT,
+        mov ecx,msg          ;  msg,
+        mov edx,msgLen       ;  msgLen
+        int 80h              ; )
+        jmp exit
+
+    _start:
+        jmp hello
+
+    exit:
+        mov eax,1            ; exit(
+        mov ebx,0            ;  0
+        int 80h              ; )
+
+    section .data
+        msg:     db 'Hello, world',10
+        msgLen:  equ $ - msg

@@ -51,8 +51,11 @@ async def run_code(req: web.Request) -> web.Response:
     payload = {"code": data.pop("code", language.example)}
 
     if language.compiled:
-        compile_args = data.pop("compile_args", language.compile_args)
-        payload["compile_command"] = f"{language.compiler} {compile_args}"
+        payload["compilers"] = data.pop("compilers", language.compilers)
+        payload["compile_args"] = data.pop("compile_args", language.compile_args)
+
+        if len(payload["compilers"]) != len(payload["compile_args"]):
+            raise web.HTTPBadRequest(reason="Mismatch of compilers and compile_args")
 
     payload["merge_output"] = get_query_bool_flag(req, "merge", False)
 
