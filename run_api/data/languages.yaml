@@ -32,7 +32,7 @@ sh:
   example: |
     # bash 4.4.20
 
-    echo Hello World
+    echo Hello world
 
 asm:
   aliases: [nasm]
@@ -68,5 +68,20 @@ asm:
         int 80h              ; )
 
     section .data
-        msg:     db 'Hello, world',10
+        msg:     db 'Hello world',10
         msgLen:  equ $ - msg
+
+c:
+  aliases: [c-g++]
+  compilers: [g++]
+  compile_args: -x c --std=c18 -Wall compile_input -o exec_input
+  example: |
+    /* c18 (g++) */
+
+    #include <stdio.h>
+
+    int main() {
+        printf("Hello world\\n");
+
+        return 0;
+    }
