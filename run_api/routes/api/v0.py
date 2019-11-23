@@ -48,7 +48,10 @@ async def run_code(req: web.Request) -> web.Response:
         if not isinstance(data, dict):
             raise web.HTTPBadRequest(reason="Bad json in body: root object is not map")
 
-    payload = {"code": data.pop("code", language.example)}
+    payload = {
+        "code": data.pop("code", language.example),
+        "input": data.pop("input", ""),
+    }
 
     if language.compiled:
         payload["compilers"] = data.pop("compilers", language.compilers)
