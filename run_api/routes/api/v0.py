@@ -70,7 +70,14 @@ async def run_code(req: web.Request) -> web.Response:
 
     async with ClientSession() as cs:
         async with cs.post(backend_run_url, json=payload) as resp:
-            if resp.status != 200:
+            if resp.status == 503:
+                log.warn("status 503, no free servers")
+
+                raise web.HTTPServiceUnavailable(
+                    reason="Service is too busy. Try again later"
+                )
+
+            elif resp.status != 200:
                 log.error("bad response status: %d: %s", resp.status, resp.reason)
 
                 raise web.HTTPInternalServerError(
