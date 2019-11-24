@@ -72,7 +72,7 @@ asm:
         msgLen:  equ $ - msg
 
 c:
-  aliases: [c-g++, c14, c14-g++]
+  aliases: [c-g++, c18, c18-g++]
   compilers: g++
   compile_args: -x c --std=c18 -Wall compile_input -o exec_input
   example: |
@@ -87,7 +87,7 @@ c:
     }
 
 c-clang:
-  aliases: [c14-clang]
+  aliases: [c18-clang]
   compilers: g++
   compile_args: -x c --std=c18 -Wall compile_input -o exec_input
   example: |
