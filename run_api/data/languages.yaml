@@ -72,11 +72,26 @@ asm:
         msgLen:  equ $ - msg
 
 c:
-  aliases: [c-g++]
-  compilers: [g++]
+  aliases: [c-g++, c14, c14-g++]
+  compilers: g++
   compile_args: -x c --std=c18 -Wall compile_input -o exec_input
   example: |
     /* c18 (g++) */
+
+    #include <stdio.h>
+
+    int main() {
+        printf("Hello world\\n");
+
+        return 0;
+    }
+
+c-clang:
+  aliases: [c14-clang]
+  compilers: g++
+  compile_args: -x c --std=c18 -Wall compile_input -o exec_input
+  example: |
+    /* c18 (clang) */
 
     #include <stdio.h>
 
