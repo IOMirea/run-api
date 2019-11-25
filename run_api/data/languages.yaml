@@ -87,9 +87,9 @@ c:
     }
 
 c-clang:
-  aliases: [c18-clang]
-  compilers: g++
-  compile_args: -x c --std=c18 -Wall compile_input -o exec_input
+  aliases: [c17-clang]
+  compilers: clang
+  compile_args: -x c --std=gnu17 -Wall compile_input -o exec_input
   example: |
     /* c18 (clang) */
 
