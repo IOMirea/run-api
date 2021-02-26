@@ -5,19 +5,44 @@
 #    pip-compile --no-index --output-file=requirements.txt requirements.in
 #
 aiohttp-remotes==0.1.2
-aiohttp==3.5.4
+    # via -r requirements.in
+aiohttp==3.7.4
+    # via
+    #   -r requirements.in
+    #   aiohttp-remotes
 aioredis==1.2.0
-async-timeout==3.0.1      # via aiohttp, aioredis
+    # via jarpc
+async-timeout==3.0.1
+    # via
+    #   aiohttp
+    #   aioredis
 asyncpg==0.18.3
-attrs==19.1.0             # via aiohttp
-certifi==2019.6.16        # via sentry-sdk
-chardet==3.0.4            # via aiohttp
-hiredis==1.0.0            # via aioredis
-idna==2.8                 # via yarl
+    # via -r requirements.in
+attrs==19.1.0
+    # via aiohttp
+certifi==2019.6.16
+    # via sentry-sdk
+chardet==3.0.4
+    # via aiohttp
+hiredis==1.0.0
+    # via aioredis
+idna==2.8
+    # via yarl
 git+https://github.com/IOMirea/jarpc
-multidict==4.5.2          # via aiohttp, yarl
+    # via -r requirements.in
+multidict==4.5.2
+    # via
+    #   aiohttp
+    #   yarl
 pyyaml==5.1.1
+    # via -r requirements.in
 sentry-sdk==0.11.2
-urllib3==1.25.3           # via sentry-sdk
+    # via -r requirements.in
+typing-extensions==3.7.4.3
+    # via aiohttp
+urllib3==1.25.3
+    # via sentry-sdk
 uvloop==0.13.0
-yarl==1.3.0               # via aiohttp
+    # via -r requirements.in
+yarl==1.3.0
+    # via aiohttp
